@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8"> <!--基本設定-->    
+    <link rel="icon" href="favicon.svg" type="image/png"> <!--網站icon-->
+    <title>第五人格 排位輔助工具</title> <!--網站標題-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--RWD設定-->
+    <link rel="stylesheet" href="css/style.css"> <!--導入css-->
+</head>
+
+
+
+<body data-theme="light">
+    <div class="device-notice" id="deviceNotice">
+        <div class="device-notice-box">
+            <h2>⚠️ 使用提醒</h2>
+            <p>
+                本網站目前僅針對<br>
+                <strong>電腦瀏覽器（桌機 / 筆電）</strong> 進行設計與適配。<br>
+                網頁分辨率可能會造成標點位置的略為偏差<br><br>
+                行動裝置（手機 / 平板）可能會出現顯示錯誤或操作不完整的情況。
+            </p>
+            <button onclick="closeDeviceNotice()">我知道了</button>
+        </div>
+    </div>
+
+
+    <div class="container" id="app">
+
+        
+        <div class="left"> <!--左側區塊：地圖顯示+即時資訊+監管隊友天賦-->   
+
+            <div class="map-area" id="mapArea"> <!--顯示選擇後的地圖俯視圖，並承載地窖/地下室標點-->
+                <!-- 尚未選擇地圖時的佔位文字 -->
+                <div class="map-placeholder">尚未選擇地圖</div>
+            </div>
+
+            
+            <div class="panel timer" id="timer"> <!--輔助技能冷卻計時顯示-->
+                技能尚未使用
+            </div>
+
+
+            <div class="talent-row">
+
+                
+                <div class="panel"> <!--監管者天賦-->
+                    <div class="field-label">
+                        監管者天賦（左鍵✔ / 右鍵✖）
+                    </div>
+                    <div class="talent-group" id="talentGroup">
+                        <div class="talent" data-state="none">挽留</div>
+                        <div class="talent" data-state="none">底牌</div>
+                        <div class="talent" data-state="none">封窗</div>
+                        <div class="talent" data-state="none">張狂</div>
+                    </div>
+                </div>
+
+                
+                <div class="panel"> <!--沒迴光返照名單-->
+                    <div class="field-label">
+                        沒迴光返照名單（左鍵✔）
+                    </div>
+                    <div class="talent-group" id="noBorrowGroup">
+                        <div class="talent simple">1號</div>
+                        <div class="talent simple">2號</div>
+                        <div class="talent simple">3號</div>
+                        <div class="talent simple">4號</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        
+        <div class="right"> <!--右側區塊：操作面板-->
+
+            <div class="theme-toggle"> <!--主題切換-->
+                <span id="themeIcon" onclick="toggleTheme()">☀️</span>
+            </div>
+
+            
+            <div class="panel"> <!--地圖選擇-->
+                <div class="field-label">遊戲地圖選擇</div>
+                <div class="select-wrap">
+                    <select id="mapSelect">
+                        <option value="">選擇地圖</option>
+                    </select>
+                </div>
+            </div>
+
+            
+            <div class="talent-group"> <!--地窖/地下室選擇-->
+
+                <div class="panel"> <!--地窖-->
+                    <div class="field-label">
+                        地窖點位選擇（淺藍色標記）
+                    </div>
+                    <div class="select-wrap">
+                        <select id="dungeonSelect" disabled> <!--地圖未選擇前為disabled-->
+                            <option value="">請先選擇地圖</option>
+                        </select>
+                    </div>
+                </div>
+
+                
+                <div class="panel"> <!--地下室-->
+                    <div class="field-label">
+                        地下室點位選擇（紅色標記）
+                    </div>
+                    <div class="select-wrap">
+                        <select id="basementSelect" disabled>
+                            <option value="">請先選擇地圖</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="panel"> <!--監管者輔助技能CD-->
+                <div class="field-label">監管者輔助技能冷卻</div>
+
+                <div class="select-wrap">
+                    <select id="assistSkill">
+                        <option value="">選擇輔助技能</option>
+                        <option value="90">失常（90 秒）</option>
+                        <option value="100">興奮（100 秒）</option>
+                        <option value="90">巡視者（90 秒）</option>
+                        <option value="100">傳送（100 秒）</option>
+                        <option value="150">閃現（150 秒）</option>
+                        <option value="100">移行（100 秒）</option>
+                    </select>
+                </div>
+
+                
+                <button class="skill-btn" onclick="startCooldown()"> <!--啟動倒數-->
+                    監管者使用技能
+                </button>
+            </div>
+
+            
+            <div class="panel"> <!--監管者角色技能CD提示-->
+                <div class="field-label">
+                    監管者角色技能 CD 提示
+                </div>
+
+                <div class="select-wrap">
+                    <select id="hunterSelect"> <!--JS載入hunters.json-->
+                        <option value="">選擇監管者</option>
+                    </select>
+                </div>
+                <div id="hunterSkills"></div> <!--JS動態生成技能卡片-->
+            </div>
+
+        </div>
+    </div>
+
+    
+    <script src="js/main.js"></script> <!--引入主程式JS-->
+
+    <!-- 頁角 Footer -->
+    <footer class="site-footer">
+        <a href="https://github.com/AvaCZK/IdvGameNotes/blob/main/README.md" target="_blank" rel="noopener noreferrer"
+            class="footer-link">
+            免責聲明
+        </a>
+        <div class="footer-meta">
+            Version 1.0.0 ｜ Last update: 2026-02
+        </div>
+    </footer>
+
+
+</body>
+
+</html>

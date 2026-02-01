@@ -1,0 +1,614 @@
+:root {
+    --bg: rgba(255, 255, 255, 0.45);
+    --panel: rgba(255, 255, 255, 0.65);
+    --text: #222;
+    --muted: rgba(0, 0, 0, 0.55);
+    --accent: #f3a4c7;
+    --accent-hover: #ec8bb6;
+    --page-bg: url("../background.jpg");
+}
+
+[data-theme="dark"] {
+    --bg: rgba(10, 10, 14, 0.75);
+    --panel: rgba(24, 24, 30, 0.85);
+    --text: #ffffff;
+    --muted: rgba(255, 255, 255, 0.6);
+    --accent: #8b5cf6;
+    --accent-hover: #7c3aed;
+}
+
+* { /* 全域 */
+    box-sizing: border-box;
+    transition: background-color .25s ease,
+        color .25s ease,
+        transform .2s ease,
+        box-shadow .25s ease;
+}
+
+body {
+    margin: 0;
+    font-family: "Noto Sans TC", system-ui, sans-serif;
+    color: var(--text);
+    background: url("../background.jpg") center / cover fixed;
+}
+
+body[data-theme="dark"] {
+    background: url("../background-dark.jpg") center / cover fixed;
+}
+
+#app {
+    --page-bg: url("../background.jpg");
+}
+
+body {
+    background: var(--page-bg) center / cover fixed;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    backdrop-filter: blur(5px);
+}
+
+.left {
+    flex: 1.2;
+    padding: 20px;
+}
+
+.right {
+    flex: .8;
+    padding: 20px;
+    background: var(--bg);
+}
+
+
+.panel {
+    background: var(--panel);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+    animation: fadeUp .5s ease both;
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+.left {
+    background: var(--bg);
+    backdrop-filter: blur(1px) saturate(10%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+.field-label {
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: var(--muted);
+}
+
+
+.theme-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+    pointer-events: none;
+}
+
+#themeIcon {
+    font-size: 26px;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: transform .6s cubic-bezier(.4, 0, .2, 1),
+        opacity .3s ease;
+}
+
+[data-theme="light"] #themeIcon {
+    color: #ffffff;
+    transform: rotate(0deg) scale(1);
+}
+
+[data-theme="dark"] #themeIcon {
+    color: #000000;
+    transform: rotate(180deg) scale(1);
+}
+
+#themeIcon:active {
+    transform: scale(0.85);
+}
+
+
+button { /*表單（按鈕）*/
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background: var(--accent);
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+    transform: scale(.95);
+}
+
+.skill-btn {
+    margin-top: 14px;
+    font-weight: 600;
+}
+
+
+.select-wrap select { /*下拉選單美化*/
+    transition:
+        background-color .15s ease,
+        box-shadow .15s ease;
+}
+.select-wrap select {
+    width: 100%;
+    padding: 12px 42px 12px 14px;
+    border-radius: 14px;
+    border: none;
+    font-size: 14px;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.85);
+    color: #111;
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.4),
+        0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.select-wrap select {
+    background: rgba(255, 255, 255, 0.95);
+}
+[data-theme="dark"] .select-wrap select {
+    background: rgba(40, 40, 50, 0.98);
+}
+
+.select-wrap select:focus {
+    outline: none;
+    box-shadow:
+        0 0 0 2px rgba(243, 164, 199, 0.6),
+        0 8px 22px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .select-wrap select:focus {
+    box-shadow:
+        0 0 0 2px rgba(139, 92, 246, 0.7),
+        0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+
+[data-theme="dark"] .select-wrap select {
+    background: rgba(50, 50, 60, 0.95);
+    color: #fff;
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+        0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+.select-wrap::after {
+    content: "▾";
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    opacity: .6;
+}
+
+select:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+
+.map-area { /*地圖*/
+    position: relative;
+    height: 70%;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, .1);
+    overflow: hidden;
+}
+
+.map-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    animation: zoomIn .5s ease;
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.map-placeholder {
+    padding: 20px;
+    opacity: .5;
+}
+
+
+.pin { /*Pin標記*/
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg) translate(-50%, -50%);
+    animation: float 2s ease-in-out infinite;
+}
+
+.pin::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+}
+
+
+.pin.dungeon { /*地窖（淺藍）*/
+    background: linear-gradient(135deg, #a5f3fc, #38bdf8);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+}
+
+
+.pin.basement { /*地下室（紅）*/
+    background: #ef4444;
+}
+
+@keyframes float {
+    50% {
+        transform: rotate(-45deg) translate(-50%, -50%) translateY(-6px);
+    }
+}
+
+
+.timer {
+    margin-top: 16px;
+    padding: 14px;
+    border-radius: 14px;
+    text-align: center;
+    font-size: 20px;
+}
+
+:root .timer.active {
+    background: rgba(243, 164, 199, 0.85);
+    color: #3a1c2a;
+    box-shadow: 0 0 18px rgba(243, 164, 199, 0.6);
+}
+
+
+[data-theme="dark"] .timer {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.25);
+}
+
+[data-theme="dark"] .timer.active {
+    background: #7c3aed;
+    color: #fff;
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.25);
+}
+
+.timer.done {
+    background: transparent;
+    color: red;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+
+.talent-row {
+    display: flex;
+    gap: 16px;
+}
+
+.talent-row .panel {
+    flex: 1;
+    margin-bottom: 0;
+    padding: 10px 14px;
+}
+
+.talent-row .field-label {
+    margin-bottom: 4px;
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.talent-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.talent {
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+    background: rgba(255, 255, 255, 0.25);
+    color: var(--text);
+}
+
+[data-theme="dark"] .talent {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+
+.talent[data-state="checked"], /* 勾選 */
+.talent.simple.checked {
+    background: rgba(52, 211, 153, 0.85);
+    color: #053;
+    font-weight: 600;
+}
+
+
+.talent[data-state="crossed"] { /* 打叉 */
+    background: rgba(239, 68, 68, 0.85);
+    color: #300;
+    text-decoration: line-through;
+    font-weight: 600;
+}
+
+/* RWD */
+@media (max-width: 900px) {
+    .talent-row {
+        flex-direction: column;
+    }
+}
+
+
+.device-notice { /*電腦版適配提示Modal*/
+    position: fixed; 
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+
+    animation: fadeIn .4s ease;
+}
+
+.device-notice-box {
+    background: var(--panel);
+    color: var(--text);
+    width: 420px;
+    max-width: 90%;
+    padding: 28px 24px;
+    border-radius: 20px;
+    text-align: center;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    animation: scaleIn .4s cubic-bezier(.4, 0, .2, 1);
+}
+
+.device-notice-box h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+.device-notice-box p {
+    font-size: 14px;
+    line-height: 1.7;
+    opacity: 0.9;
+}
+
+.device-notice-box button {
+    margin-top: 20px;
+    padding: 10px 22px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+
+    background: var(--accent);
+    color: #fff;
+    font-size: 14px;
+}
+
+.device-notice-box button:hover {
+    background: var(--accent-hover);
+}
+
+
+@keyframes fadeIn { /* 動畫 */
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+.device-notice.closing { /*關閉動畫狀態*/
+    animation: fadeOut .35s ease forwards;
+}
+
+.device-notice.closing .device-notice-box {
+    animation: scaleDown .35s cubic-bezier(.4, 0, .2, 1) forwards;
+}
+
+
+@keyframes fadeOut { /* 關閉動畫 */
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes scaleDown {
+    to {
+        transform: translateY(20px) scale(0.92);
+        opacity: 0;
+    }
+}
+
+
+@keyframes selectPop {
+    0% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform: scale(0.96);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+.select-pop {
+    animation: selectPop 0.18s ease;
+    box-shadow:
+        0 0 0 2px rgba(243, 164, 199, 0.5),
+        0 8px 22px rgba(0, 0, 0, 0.18);
+}
+
+
+[data-theme="dark"] .select-pop {
+    box-shadow:
+        0 0 0 2px rgba(139, 92, 246, 0.6),
+        0 10px 26px rgba(0, 0, 0, 0.6);
+}
+
+
+.hunter-skill-card { /*監管者技能 CD 卡片*/
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px 14px;
+    margin-top: 8px;
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(6px);
+
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.hunter-skill-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+/* 技能名稱 */
+.skill-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+}
+
+/* CD */
+.skill-cd {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+
+    background: rgba(0, 0, 0, 0.08);
+    color: #333;
+}
+
+/* 深色模式 */
+[data-theme="dark"] .hunter-skill-card {
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .skill-cd {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+
+.site-footer {
+    width: 100%;
+    padding: 16px 0 20px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.85;
+}
+
+
+.footer-link { /* 免責聲明連結 */
+    color: var(--text);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.footer-link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+
+.footer-meta { /* 版本資訊 */
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.75;
+}
+
+
+[data-theme="dark"] .site-footer { /* 深色模式微調 */
+    color: rgba(255, 255, 255, 0.85);
+}
+
+[data-theme="dark"] .footer-link {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="dark"] .footer-meta {
+    opacity: 0.65;
+}
