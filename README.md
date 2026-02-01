@@ -1,4 +1,9 @@
 # IdvGameNotes
+## 網頁UI展示
+[](https://github.com/AvaCZK/IdvGameNotes/blob/main/showPhoto1.png)
+[](https://github.com/AvaCZK/IdvGameNotes/blob/main/showPhoto2.png)
+[](https://github.com/AvaCZK/IdvGameNotes/blob/main/showPhoto3.png)
+
 ## 免責聲明
 本網站為玩家自製之輔助工具，
 與 NetEase Games 及《第五人格》官方無任何隸屬、合作或授權關係。
