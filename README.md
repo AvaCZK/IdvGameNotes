@@ -14,4 +14,4 @@
 如有問題回報或功能建議，
 請透過 GitHub Issues，或聯絡 Discord：czk.hi。
 
-Version 0.9.3 ｜ Last update: 2026-02
+
